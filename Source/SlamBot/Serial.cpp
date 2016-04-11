@@ -164,9 +164,11 @@ FString ASerial::GetNextMessage()
 	return Message;
 }
 
-void ASerial::SendMessage(FString Message)
+void ASerial::SendMessage(FString Message, bool IncludeNewline)
 {
-	WriteData(TCHAR_TO_ANSI(*Message), Message.Len());
+	FString MessageToSend = IncludeNewline ? Message + '\n' : Message;
+
+	WriteData(TCHAR_TO_ANSI(*MessageToSend), MessageToSend.Len());
 }
 
 int ASerial::ReadData(char *Buffer, uint32 BufferSize)

@@ -42,7 +42,7 @@ public:
 
 	// Send a message
 	UFUNCTION(BlueprintCallable, Category = "IO")
-	void SendMessage(FString Message);
+	void SendMessage(FString Message, bool IncludeNewline = false);
 
 protected:
 
