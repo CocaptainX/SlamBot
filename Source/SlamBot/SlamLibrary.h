@@ -24,6 +24,9 @@ public:
 	// imported methods
 	UFUNCTION(BlueprintCallable, Category = "Slam library")
 	static bool invertBool(bool value);
+
+	UFUNCTION(BlueprintCallable, Category = "Slam library")
+	static void testSlam();
 	
 	
 };

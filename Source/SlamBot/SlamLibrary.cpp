@@ -13,6 +13,7 @@ void *dllHandle;
 
 // define imported function signatures and local references
 DEFINE_DLL_METHOD(invertBool, bool, bool value);
+DEFINE_DLL_METHOD(testSlam, void, void);
 
 // imports given dll and all methods from dll in project/Plugins/folder/name
 bool USlamLibrary::loadSlamLibrary(FString folder, FString name)
@@ -33,6 +34,7 @@ bool USlamLibrary::loadSlamLibrary(FString folder, FString name)
 
 	// import all methods
 	IMPORT_DLL_METHOD(invertBool);
+	IMPORT_DLL_METHOD(testSlam);
 
 	return true;
 }
@@ -54,4 +56,9 @@ void USlamLibrary::unloadSlamLibrary()
 bool USlamLibrary::invertBool(bool value)
 {
 	return invertBool_(value);
+}
+
+void USlamLibrary::testSlam()
+{
+	testSlam_();
 }

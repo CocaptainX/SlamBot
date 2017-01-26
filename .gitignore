@@ -10,3 +10,7 @@ Saved
 *.xcworkspace
 ~$*
 .maya*
+/SlamLibrary/build
+/SlamLibrary/dist
+/SlamLibrary/.vs
+/SlamLibrary/SlamLibrary.vcxproj.user
