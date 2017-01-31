@@ -122,8 +122,30 @@ static bool load_data(
 	return true;
 }
 
-// Class for Mines verison of URG-04LX Lidar -----------------------------------
+/*
+// A class for the Hokuyo URG-04LX laser.
+class URG04LX : public Laser
+{
 
+public:
+
+	
+	* Builds a URG04LX object.
+	* Lidar unit.
+	* @param detection_margin           number of rays at edges of scan to ignore
+	* @param offset_mm                  forward/backward offset of laser motor from robot center
+	* @return a new URG04LX object
+	*
+	
+	URG04LX(int detection_margin = 0, float offset_mm = 0) :
+		Laser(682, 10, 240, 4000, detection_margin, offset_mm)
+	{}
+
+	URG04LX(void) : Laser() {}
+
+};
+
+// Class for Mines verison of URG-04LX Lidar -----------------------------------
 class MinesURG04LX : public URG04LX
 {
 
@@ -134,9 +156,19 @@ public:
 		145)         // offsetMillimeters
 	{}
 };
+*/
+
+class NeatoLidar : public Laser
+{
+public:
+	NeatoLidar() :
+		Laser(60, 1, 360, 3000, 0, 0)
+	{}
+};
 
 // Class for MinesRover custom robot -------------------------------------------
 
+/*
 class Rover : WheeledRobot
 {
 
@@ -185,7 +217,42 @@ private:
 
 	static const int TICKS_PER_CYCLE = 2000;
 };
+*/
 
+class SlamBotRobot : WheeledRobot
+{
+
+public:
+
+	SlamBotRobot() : WheeledRobot(
+		45,     // wheelRadiusMillimeters
+		65)     // halfAxleLengthMillimeters
+	{}
+
+	// todo: probably not needed
+	Velocities computeVelocities(long * odometry, Velocities & velocities)
+	{
+		return WheeledRobot::computeVelocities(
+			odometry[0],
+			odometry[1],
+			odometry[2]);
+	}
+
+protected:
+
+	void extractOdometry(
+		double timestamp,
+		double leftWheelOdometry,
+		double rightWheelOdometry,
+		double & timestampSeconds,
+		double & leftWheelDegrees,
+		double & rightWheelDegrees)
+	{  
+		timestampSeconds = timestamp; // expects seconds in as well
+		leftWheelDegrees = leftWheelOdometry; // expects wheel rotation in degrees
+		rightWheelDegrees = rightWheelOdometry; // expects wheel rotation in degrees
+	}
+};
 
 // Progress-bar class
 // Adapted from http://code.activestate.com/recipes/168639-progress-bar-class/

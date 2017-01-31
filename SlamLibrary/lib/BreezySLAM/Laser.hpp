@@ -107,30 +107,4 @@ public:
         return out;
     }
 };
-    
-/**
-  * A class for the Hokuyo URG-04LX laser.
-  */
-class URG04LX : public Laser  
-{
-    
-public:
-    
-    /**
-    * Builds a URG04LX object.
-    * Lidar unit.
-    * @param detection_margin           number of rays at edges of scan to ignore
-    * @param offset_mm                  forward/backward offset of laser motor from robot center
-    * @return a new URG04LX object
-    * 
-    */
-    URG04LX(int detection_margin = 0, float offset_mm = 0) : 
-    Laser(682, 10, 240, 4000, detection_margin, offset_mm) { }
-    
-    /**
-    * Builds an empty URG04LX object (all parameters zero).
-    */
-    URG04LX(void) : Laser() {} 
-    
-};
-
+   

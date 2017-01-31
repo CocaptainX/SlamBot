@@ -90,25 +90,14 @@ virtual void extractOdometry(
 
 friend ostream& operator<< (ostream & out, WheeledRobot & robot)
 {
-    
-    char subclassStr[100];
-    robot.descriptorString(subclassStr);
-    
     char str[200];
-    sprintf(str, "<Wheel radius=%f m Half axle Length=%f m | %s>",
-        robot.wheel_radius_mm, robot.half_axle_length_mm, subclassStr);
+    sprintf(str, "<Wheel radius=%f m Half axle Length=%f m>",
+        robot.wheel_radius_mm, robot.half_axle_length_mm);
     
     out << str;
     
     return out;
 }
-
-
-/**
-* Gets a descriptor string for your robot.
-* @param str gets the descriptor string    
-*/
-virtual void descriptorString(char * str) = 0;
 
 private:
     

@@ -29,13 +29,15 @@ void DLL_EXPORT testSlam()
 	dbg("data was loaded successfully");
 
 	// Build a robot model in case we want odometry
-	Rover robot = Rover();
+	//Rover robot = Rover();
+	SlamBotRobot robot = SlamBotRobot();
 
 	// Create a byte array to receive the computed maps
 	unsigned char * mapbytes = new unsigned char[MAP_SIZE_PIXELS * MAP_SIZE_PIXELS];
 
 	// Create SLAM object
-	MinesURG04LX laser;
+	//MinesURG04LX laser;
+	NeatoLidar laser;
 	SinglePositionSLAM * slam = random_seed ?
 		(SinglePositionSLAM*)new RMHC_SLAM(laser, MAP_SIZE_PIXELS, MAP_SIZE_METERS, random_seed) :
 		(SinglePositionSLAM*)new Deterministic_SLAM(laser, MAP_SIZE_PIXELS, MAP_SIZE_METERS);
