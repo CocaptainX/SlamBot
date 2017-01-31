@@ -58,12 +58,12 @@ void ASerial::Tick( float DeltaTime )
 	MessageCount = MessageList.Num();
 }
 
-void ASerial::OpenPort(FString PortName)
+bool ASerial::OpenPort(FString Name)
 {
+	PortName = Name;
+
 	UE_LOG(SerialLog, Log, TEXT("Opening serial port '%s'"), *PortName);
 	
-	this->PortName = PortName;
-
 	// reset connected state
 	IsConnected = false;
 
@@ -94,7 +94,7 @@ void ASerial::OpenPort(FString PortName)
 			SetError(FString::Printf(TEXT("Failed opening serial port '%s' - unknown reason"), *PortName));
 		}
 
-		return;
+		return false;
 	}
 
 	// set the serial port parameters
@@ -105,7 +105,7 @@ void ASerial::OpenPort(FString PortName)
 	{
 		SetError(FString::Printf(TEXT("Getting serial port '%s' parameters failed"), *PortName));
 	
-		return;
+		return false;
 	}
 
 	// setup parameters
@@ -120,7 +120,7 @@ void ASerial::OpenPort(FString PortName)
 	{
 		SetError(FString::Printf(TEXT("Setting serial port '%s' parameters failed"), *PortName));
 
-		return;
+		return false;
 	}
 
 	// flush any remaining characters in the buffers 
@@ -129,6 +129,8 @@ void ASerial::OpenPort(FString PortName)
 	// we're now connected!
 	IsConnected = true;
 	HasBeenOpen = true;
+
+	return true;
 }
 
 void ASerial::ClosePort()
@@ -146,6 +148,11 @@ void ASerial::ClosePort()
 	CloseHandle(SerialHandle);
 
 	UE_LOG(SerialLog, Log, TEXT("Closed serial port"));
+}
+
+bool ASerial::IsPortOpen()
+{
+	return IsConnected;
 }
 
 FString ASerial::GetNextMessage()

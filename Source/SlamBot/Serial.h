@@ -29,19 +29,23 @@ public:
 	virtual void Tick( float DeltaSeconds ) override;
 
 	// Opens a serial COM port
-	UFUNCTION(BlueprintCallable, Category = "Setup")
-	void OpenPort(FString PortName);
+	UFUNCTION(BlueprintCallable, Category = "Serial")
+	bool OpenPort(FString Name);
 
 	// Closes opened a serial COM port
-	UFUNCTION(BlueprintCallable, Category = "IO")
+	UFUNCTION(BlueprintCallable, Category = "Serial")
 	void ClosePort();
 
+	// Returns whether the serial connection is currently open
+	UFUNCTION(BlueprintCallable, Category = "Serial")
+	bool IsPortOpen();
+
 	// Returns the next message, unshifting it from the queue
-	UFUNCTION(BlueprintCallable, Category = "IO")
+	UFUNCTION(BlueprintCallable, Category = "Serial")
 	FString GetNextMessage();
 
 	// Send a message
-	UFUNCTION(BlueprintCallable, Category = "IO")
+	UFUNCTION(BlueprintCallable, Category = "Serial")
 	void SendMessage(FString Message, bool IncludeNewline = false);
 
 protected:
